@@ -17,7 +17,7 @@ RSpec.describe GramsController, type: :controller do
     end
 
     it "should return a 404 error message if the id is invalid or does not exist in the datbase" do
-      delte :destroy, id: "TETERED"
+      delete :destroy, id: "TETERED"
 
       expect(response).to have_http_status(:not_found)
     end
