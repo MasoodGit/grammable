@@ -2,6 +2,29 @@ require 'rails_helper'
 
 RSpec.describe GramsController, type: :controller do
 
+
+  describe "grams#destroy action" do
+    it "should allow user to delete a gram given id from the database " do
+      gram = FactoryGirl.create(:gram)
+
+      delete :destroy, id: gram.id
+
+      expect(response).to redirect_to root_path
+
+      gram = Gram.find_by_id(gram.id)
+      expect(gram).to eq nil
+
+    end
+
+    it "should return a 404 error message if the id is invalid or does not exist in the datbase" do
+      delte :destroy, id: "TETERED"
+
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
+
+
   describe "grams#update action" do
 
     it "should allow users to successfully update the gram" do
